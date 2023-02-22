@@ -1,5 +1,6 @@
 package br.com.mv.loja.service;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -11,11 +12,21 @@ import br.com.mv.loja.dto.InfoFornecedorDTO;
 @Service
 public class CompraService {
 
+	private RestTemplate client;
 
-	public void realizaCompra(CompraDTO compraDTO) {
-		RestTemplate client = new RestTemplate();
-		ResponseEntity<InfoFornecedorDTO> exchange = client.exchange("http://localhost:8081/info/"+compraDTO.getEndereco().getEstado()+"", 
-				HttpMethod.GET, null, InfoFornecedorDTO.class);
+	public void realizaCompra(CompraDTO compra) {
+
+		ResponseEntity<br.com.mv.loja.dto.InfoFornecedorDTO> exchange = client.exchange(
+				"http://fornecedor/info/" + compra.getEndereco().getEstado(), HttpMethod.GET, null,
+				InfoFornecedorDTO.class);
+
 		System.out.println(exchange.getBody().getEndereco());
+
 	}
+
+	@Bean
+	public RestTemplate restTemplate() {
+		return new RestTemplate();
+	}
+
 }
