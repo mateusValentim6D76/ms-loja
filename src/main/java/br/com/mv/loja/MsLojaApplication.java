@@ -9,11 +9,11 @@ import org.springframework.web.client.RestTemplate;
 @SpringBootApplication
 public class MsLojaApplication {
 
-	@Bean
-	@LoadBalanced
-	public RestTemplate getRestTemplate() {
-		return new RestTemplate();
-	}
+//	@Bean
+//	@LoadBalanced
+//	public RestTemplate getRestTemplate() {
+//		return new RestTemplate();
+//	}
 	
 	public static void main(String[] args) {
 		SpringApplication.run(MsLojaApplication.class, args);

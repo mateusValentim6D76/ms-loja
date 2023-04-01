@@ -1,5 +1,6 @@
 package br.com.mv.loja.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
@@ -12,14 +13,22 @@ import br.com.mv.loja.dto.InfoFornecedorDTO;
 @Service
 public class CompraService {
 
+	@Autowired
 	private RestTemplate client;
+
+	@Autowired
+	private org.springframework.cloud.client.discovery.DiscoveryClient eurekaClient;
 
 	public void realizaCompra(CompraDTO compra) {
 
-		ResponseEntity<br.com.mv.loja.dto.InfoFornecedorDTO> exchange = client.exchange(
+		ResponseEntity<InfoFornecedorDTO> exchange = client.exchange(
 				"http://fornecedor/info/" + compra.getEndereco().getEstado(), HttpMethod.GET, null,
 				InfoFornecedorDTO.class);
 
+		eurekaClient.getInstances("fornecedor").stream().forEach(fornecedor -> {
+			System.out.println(fornecedor.getPort());
+		});
+		
 		System.out.println(exchange.getBody().getEndereco());
 
 	}

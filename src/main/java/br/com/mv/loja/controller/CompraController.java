@@ -7,13 +7,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.mv.loja.dto.CompraDTO;
+import br.com.mv.loja.service.CompraService;
 
 @RestController
 @RequestMapping("/compra")
 public class CompraController {
 	
 	@Autowired
-	private br.com.mv.loja.service.CompraService compraService;
+	private CompraService compraService;
 
 	@RequestMapping(method = RequestMethod.POST)
 	public void realizaCompra(@RequestBody CompraDTO compra) {

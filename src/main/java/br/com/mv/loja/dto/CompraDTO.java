@@ -12,4 +12,5 @@ public class CompraDTO {
 	private List<ItemCompraDTO> itens;
 
 	private EnderecoDTO endereco;
+	
 }
